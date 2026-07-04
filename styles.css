@@ -2,6 +2,10 @@
   --font-display: "Press Start 2P", "Courier New", monospace;
   --font-body: "VT323", "Courier New", monospace;
   --border-w: 4px;
+  --shadow-sm-1: 3px;
+  --shadow-sm-2: 6px;
+  --shadow-lg-1: 4px;
+  --shadow-lg-2: 8px;
 }
 
 html[data-theme="dark"] {
@@ -40,7 +44,7 @@ html[data-theme="light"] {
 }
 
 html, body {
-  height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -52,6 +56,7 @@ body {
   line-height: 1.5;
   display: flex;
   align-items: center;
+  align-items: safe center;
   justify-content: center;
   min-height: 100vh;
   padding: clamp(1rem, 5vw, 3rem);
@@ -82,20 +87,20 @@ body {
 .floaty {
   position: absolute;
   border: var(--border-w) solid var(--border);
-  box-shadow: 3px 3px 0 var(--shadow-color), 6px 6px 0 var(--border);
+  box-shadow: var(--shadow-sm-1) var(--shadow-sm-1) 0 var(--shadow-color), var(--shadow-sm-2) var(--shadow-sm-2) 0 var(--border);
   animation: float ease-in-out infinite;
 }
 
 .floaty-img {
-  width: 52px;
-  height: 52px;
+  width: clamp(28px, 4.5vw, 52px);
+  height: clamp(28px, 4.5vw, 52px);
   object-fit: cover;
   image-rendering: pixelated;
 }
 
 .floaty-icon {
-  width: 44px;
-  height: 44px;
+  width: clamp(24px, 4vw, 44px);
+  height: clamp(24px, 4vw, 44px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,8 +131,17 @@ body {
   50% { transform: translateY(-14px); }
 }
 
-@media (max-width: 1100px) {
-  .floaties { display: none; }
+@media (max-width: 700px) {
+  .f5, .f6, .f7, .f8, .f9, .f10 { display: none; }
+
+  .f1  { top: 0.4rem; left: 6%; }
+  .f2  { top: 0.4rem; left: 26%; right: auto; }
+  .f3  { top: 0.4rem; left: 46%; }
+  .f4  { top: 0.4rem; left: 66%; right: auto; }
+
+  .f11 { top: auto; bottom: 0.4rem; left: 10%; }
+  .f12 { top: auto; bottom: 0.4rem; left: 42%; right: auto; }
+  .f13 { top: auto; bottom: 0.4rem; left: 74%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -141,7 +155,7 @@ body {
   max-width: 640px;
   background: var(--surface);
   border: var(--border-w) solid var(--border);
-  box-shadow: 4px 4px 0 var(--shadow-color), 8px 8px 0 var(--border);
+  box-shadow: var(--shadow-lg-1) var(--shadow-lg-1) 0 var(--shadow-color), var(--shadow-lg-2) var(--shadow-lg-2) 0 var(--border);
   padding: clamp(1.25rem, 4vw, 2.5rem);
 }
 
@@ -151,12 +165,12 @@ body {
 }
 
 .avatar {
-  width: 72px;
-  height: 72px;
+  width: clamp(56px, 16vw, 72px);
+  height: clamp(56px, 16vw, 72px);
   object-fit: cover;
   image-rendering: pixelated;
   border: var(--border-w) solid var(--border);
-  box-shadow: 3px 3px 0 var(--shadow-color), 6px 6px 0 var(--border);
+  box-shadow: var(--shadow-sm-1) var(--shadow-sm-1) 0 var(--shadow-color), var(--shadow-sm-2) var(--shadow-sm-2) 0 var(--border);
   margin-bottom: 1.25rem;
 }
 
@@ -195,7 +209,7 @@ body {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 1rem;
 }
 
@@ -208,7 +222,7 @@ body {
   color: var(--text);
   text-decoration: none;
   border: var(--border-w) solid var(--border);
-  box-shadow: 3px 3px 0 var(--shadow-color), 6px 6px 0 var(--border);
+  box-shadow: var(--shadow-sm-1) var(--shadow-sm-1) 0 var(--shadow-color), var(--shadow-sm-2) var(--shadow-sm-2) 0 var(--border);
   transition: transform 0.1s ease;
 }
 
@@ -255,7 +269,7 @@ body {
   color: var(--text);
   text-decoration: none;
   border: var(--border-w) solid var(--border);
-  box-shadow: 3px 3px 0 var(--shadow-color), 6px 6px 0 var(--border);
+  box-shadow: var(--shadow-sm-1) var(--shadow-sm-1) 0 var(--shadow-color), var(--shadow-sm-2) var(--shadow-sm-2) 0 var(--border);
   transition: transform 0.1s ease;
 }
 
@@ -305,7 +319,7 @@ body {
   background: var(--surface);
   color: var(--accent-yellow);
   border: var(--border-w) solid var(--border);
-  box-shadow: 3px 3px 0 var(--shadow-color), 6px 6px 0 var(--border);
+  box-shadow: var(--shadow-sm-1) var(--shadow-sm-1) 0 var(--shadow-color), var(--shadow-sm-2) var(--shadow-sm-2) 0 var(--border);
   cursor: pointer;
 }
 
@@ -326,7 +340,11 @@ html[data-theme="dark"] .theme-toggle .icon-sun {
 }
 
 @media (max-width: 480px) {
-  .links ul {
-    grid-template-columns: 1fr;
+  :root {
+    --border-w: 3px;
+    --shadow-sm-1: 2px;
+    --shadow-sm-2: 4px;
+    --shadow-lg-1: 3px;
+    --shadow-lg-2: 6px;
   }
 }
